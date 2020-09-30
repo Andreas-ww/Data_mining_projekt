@@ -15,3 +15,4 @@ val_data <- data[-train_index,]
 train_y <- train_data$T
 val_y <- val_data$T
 
+#TESTAR ATT LÄGGA TILL GITHUB
