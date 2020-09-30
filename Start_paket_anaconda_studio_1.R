@@ -54,10 +54,10 @@ require(arulesSequences)
 
 #Installation av keras
 # Körs endast en gång vid installation av paketet
-install_keras() 
+#install_keras() 
 
 
 # För att kunna använda keras behövs tensorflow i bakgrunden
 # Denna kod behöver köras endast en gång
-reticulate::conda_create("r-tensorflow")
-tensorflow::install_tensorflow()
+#reticulate::conda_create("r-tensorflow")
+#tensorflow::install_tensorflow()
