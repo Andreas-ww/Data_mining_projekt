@@ -19,3 +19,4 @@ val_y <- val_data$V1
 
 train_x <- as.matrix(train_data[,-1])
 val_x <- as.matrix(val_data[,-1])
+
