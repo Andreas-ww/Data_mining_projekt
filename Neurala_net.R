@@ -4,8 +4,9 @@ x_train <- train_x
 x_test <- val_x
 
 # Omstrukturerar kategorsk variabel till binär form
-y_train <- to_categorical(train_data[, which(colnames(train_data) == "V1")], num_classes = 26)
-y_test <- to_categorical(val_data[, which(colnames(val_data) == "V1")], num_classes = 26)
+y_train <- to_categorical(train_y , num_classes = 26)
+y_test <- to_categorical(val_y , num_classes = 26)
+
 
 
 ## Modell
@@ -76,8 +77,8 @@ plot(history)
 # Notera att för denna funktion måste y vara i klass-form, inte binärt som används i keras-funktionerna ovan
 class_evaluation(new_data = x_train, 
                  model = nn_model, 
-                 true_y = data_class_train$y)
+                 true_y = train_data$Y)
 
 class_evaluation(new_data = x_test, 
                  model = nn_model, 
-                 true_y = data_class_test$y)
+                 true_y = val_data$Y)
