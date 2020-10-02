@@ -15,7 +15,7 @@ knn_model <- train(form = V1 ~.,
                      # Anger att manuell val av utforskade k kommer ges, anges i tuneGrid
                      search = "grid"), 
                    # Anger vilka k som ska letas igenom i valideringen
-                   tuneGrid = expand.grid(k = c(5, 7, 9, 11, 15, 21, 23)) 
+                   tuneGrid = expand.grid(k = 1:5) 
 ) 
 
 knn_model
