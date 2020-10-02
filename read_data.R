@@ -3,6 +3,17 @@
 #Läser in data
 data <- read.csv("letter-recognition.data" , header = F)
 
+
+###förvandlar bokstavär till int
+
+data$"Y" <- 0
+
+for(i in 1:length(letters)){
+
+  ind <- data$V1==LETTERS[i]
+  data$Y[ind] <- i-1
+}
+
 #Skapar training / validation set
 set.seed(1234)
 
@@ -20,14 +31,6 @@ val_y <- val_data$V1
 train_x <- as.matrix(train_data[,-1])
 val_x <- as.matrix(val_data[,-1])
 
-###förvandlar bokstavär till int
 
-data$"Y" <- 0
 
-for(i in 1:length(letters)){
-
-  ind <- data$V1==LETTERS[i]
-  data$Y[ind] <- i}
-
-}
 
