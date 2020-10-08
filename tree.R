@@ -1,7 +1,7 @@
 ### Test decision tree 
 
 tree <- rpart(
-  formula = V1 ~ .,
+  formula = Y ~ .,
   data = train_data,
   method = "class",
   # Anger föroreningsmått
@@ -10,9 +10,9 @@ tree <- rpart(
   control = list(
     ## Stopkriterier
     # Anger att antalet observationer som krävs för att en förgrening ska ske
-    minsplit = 10,
+    minsplit = 1,
     # Anger maxdjupet av träder, där 0 är rotnoden
-    maxdepth = 30, 
+    maxdepth = 15, 
     # Anger den minsta tillåtna förbättringen som måste ske för att en förgrening ska ske
     cp = 0,
     # Två inställningar som inte används mer i detalj
@@ -21,7 +21,7 @@ tree <- rpart(
     
     ## Trädanpassning
     # Anger antalet korsvalideringar som ska ske medan modellens tränas, intern validering
-    xval = 0, 
+    xval = 10, 
     # Tillåter att förgreningar har surrogatregler som kan användas vid saknade värden
     # Ska vara 2 om saknade värden finns i datamaterialet
     usesurrogate = 0
@@ -54,8 +54,8 @@ text(tree,
 
 
 class_evaluation(new_data = train_data, 
-                 model = tree, 
-                 true_y = train_data$V1, 
+                 model = tree_pruned, 
+                 true_y = train_data$Y, 
                  digits = 3)
 
 class_evaluation(new_data = val_data, 
