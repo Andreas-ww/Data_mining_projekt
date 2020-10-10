@@ -15,7 +15,7 @@ knn_model <- train(form = Y ~.,
                      # Anger att manuell val av utforskade k kommer ges, anges i tuneGrid
                      search = "grid"), 
                    # Anger vilka k som ska letas igenom i valideringen
-                   tuneGrid = expand.grid(k = 1:10) 
+                   tuneGrid = expand.grid(k = c(1,20,50,100)) 
 ) 
 
 plot(knn_model ,xlab="K" , ylab="Precision" , main="Val av K för KNN")
@@ -29,4 +29,16 @@ new_pred <- predict(knn_model,
 
 table(new_pred, test_data$Y)
 
-class_evaluation(new_data = test_data, model = knn_model, true_y = test_data$Y, type = "raw")
+eval <-class_evaluation(new_data = test_data, model = knn_model, true_y = test_data$Y, type = "raw")
+
+kable(eval$confusion_matrix , format="latex" , linesep="" , caption="Förväxlingsmatris", label="cv" , booktabs=F, align="c", position="H" , digits=6)
+kable(eval$overall , format="latex" , linesep="" , caption="Precision och felkvot", label="overall" , booktabs=T, align="c", position="H")
+l<- list(t(eval$class_wise[1,1:13]),t(eval$class_wise[1,14:26]))
+t(l)
+kable(l , format="latex" , linesep="-" , caption="Klassvis", label="klass" , booktabs=T, align="c", position="H" )
+
+
+
+
+
+
