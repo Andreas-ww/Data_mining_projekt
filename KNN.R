@@ -1,6 +1,6 @@
 ### Test med K nearest neighbours
 
-knn_model <- train(form = V1 ~., 
+knn_model <- train(form = Y ~., 
                    data = train_data, 
                    method = "knn", 
                    # Standardiserar förklarande variabler
@@ -9,22 +9,24 @@ knn_model <- train(form = V1 ~.,
                      # Anger att korsvalidering ska köras
                      method = "repeatedcv", 
                      # Anger antalet k i k-fold korsvalidering, alltså inte k för KNN
-                     number = 10, 
+                     number = 3, 
                      # Repeterar valideringen tre gånger
                      repeats = 3, 
                      # Anger att manuell val av utforskade k kommer ges, anges i tuneGrid
                      search = "grid"), 
                    # Anger vilka k som ska letas igenom i valideringen
-                   tuneGrid = expand.grid(k = 1:5) 
+                   tuneGrid = expand.grid(k = 1:10) 
 ) 
 
-knn_model
+plot(knn_model ,xlab="K" , ylab="Precision" , main="Val av K för KNN")
+
 
 new_pred <- predict(knn_model, 
-                    newdata = val_data, 
+                    newdata = test_data, 
                     # "raw" ger majoritetsklassen, 
                     # "prob" ger sannolikheterna (andelen) av grannar
                     type = "raw") 
 
+table(new_pred, test_data$Y)
 
-class_evaluation(new_data = val_data, model = knn_model, true_y = val_data$V1, type = "raw")
+class_evaluation(new_data = test_data, model = knn_model, true_y = test_data$Y, type = "raw")
