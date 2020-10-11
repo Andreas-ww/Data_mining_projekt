@@ -17,11 +17,10 @@ colnames(data) <- c("Y", "x-box" , "y-box" , "width", "high", "onpix",
 #   ind <- data$V1==LETTERS[i]
 #  data$Y[ind] <- i-1
 #  }
+#train_index <- createDataPartition(data$Y, p=0.8 , list=F)
 
 #Skapar training / test set
 set.seed(1234)
-
-#train_index <- createDataPartition(data$Y, p=0.8 , list=F)
 
 train_index<- sample(1:nrow(data) , 16000)
 

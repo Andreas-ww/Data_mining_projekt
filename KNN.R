@@ -15,7 +15,7 @@ knn_model <- train(form = Y ~.,
                      # Anger att manuell val av utforskade k kommer ges, anges i tuneGrid
                      search = "grid"), 
                    # Anger vilka k som ska letas igenom i valideringen
-                   tuneGrid = expand.grid(k = c(1,20,50,100)) 
+                   tuneGrid = expand.grid(k = 1:10) 
 ) 
 
 plot(knn_model ,xlab="K" , ylab="Precision" , main="Val av K för KNN")

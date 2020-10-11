@@ -5,14 +5,14 @@ tree <- rpart(
   data = train_data,
   method = "class",
   # Anger föroreningsmått
-  parms = list(split = "gini"), 
+  parms = list(split = "information"), 
   
   control = list(
     ## Stopkriterier
     # Anger att antalet observationer som krävs för att en förgrening ska ske
-    minsplit = 1,
+    minsplit = 5,
     # Anger maxdjupet av träder, där 0 är rotnoden
-    maxdepth = 15, 
+    maxdepth = 30, 
     # Anger den minsta tillåtna förbättringen som måste ske för att en förgrening ska ske
     cp = 0,
     # Två inställningar som inte används mer i detalj
@@ -21,16 +21,15 @@ tree <- rpart(
     
     ## Trädanpassning
     # Anger antalet korsvalideringar som ska ske medan modellens tränas, intern validering
-    xval = 10, 
+    xval = 5, 
     # Tillåter att förgreningar har surrogatregler som kan användas vid saknade värden
     # Ska vara 2 om saknade värden finns i datamaterialet
     usesurrogate = 0
   )
 )
-
 ## Sammanfattar alla noder, deras klassindelningar och fel
-summary(tree, digits = 3) 
-
+ncol(tree) 
+tree
 
 printcp(tree, digits = 3)
 # Söker ut det cp-värde med minsta validerings-felet för beskärning av trädet
@@ -54,13 +53,13 @@ text(tree,
 
 
 class_evaluation(new_data = train_data, 
-                 model = tree_pruned, 
+                 model = tree, 
                  true_y = train_data$Y, 
                  digits = 3)
 
-class_evaluation(new_data = val_data, 
+class_evaluation(new_data = test_data, 
                  model = tree, 
-                 true_y = val_data$V1, 
+                 true_y = test_data$Y, 
                  digits = 3)
-
+  length(tree_pruned)  
 
